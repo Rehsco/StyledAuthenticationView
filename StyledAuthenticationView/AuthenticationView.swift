@@ -41,7 +41,7 @@ public enum AuthErrorType {
     case unableToEvalPinCode
     case unableToEvalPassword
     
-    func description() -> String {
+    public func description() -> String {
         switch self {
         case .success:
             return "Successfully authenticated"
