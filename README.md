@@ -1,9 +1,9 @@
 # StyledAuthenticationView
 StyledAuthenticationView is a UIView with styling options to authenticate with TouchID, PIN and Passwords
 
-![](https://cloud.githubusercontent.com/assets/476994/22781402/a517cc50-eec2-11e6-9050-7cd35a41b2ad.PNG =240x320)
-![img_2713](https://cloud.githubusercontent.com/assets/476994/22781403/a5268ce0-eec2-11e6-8d13-aa0f1565cd67.PNG =240x320)
-![img_2715](https://cloud.githubusercontent.com/assets/476994/22781404/a52792e8-eec2-11e6-806e-9f02c18222aa.PNG =240x320)
+![](https://cloud.githubusercontent.com/assets/476994/22781809/84a5f2b0-eec4-11e6-81e9-d3d52b3088be.jpg)
+![](https://cloud.githubusercontent.com/assets/476994/22781808/84a547de-eec4-11e6-966a-6a98ce455d50.jpg)
+![](https://cloud.githubusercontent.com/assets/476994/22781810/84da1b94-eec4-11e6-802c-27075b9f4cae.jpg)
 
 # Usage
 
