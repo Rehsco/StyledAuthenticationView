@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'StyledAuthenticationView'
-  s.version          = '1.0'
+  s.version          = '1.0.1'
   s.license          = 'MIT'
   s.summary          = 'StyledAuthenticationView is a UIView with styling options to authenticate with TouchID, PIN and Passwords'
   s.homepage         = 'https://github.com/Rehsco/StyledAuthenticationView.git'

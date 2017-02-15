@@ -648,12 +648,17 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                         cellItem.text = NSAttributedString(string: "\(dtext)")
                         cellItem.itemSelectionActionHandler = {
                             self.enteredDigits.append(Digit(digit: pm.digit))
-                            self.microPinCollectionView?.selectItem("\(self.enteredDigits.count-1)")
+                            DispatchQueue.main.async {
+                                self.microPinCollectionView?.selectItem("\(self.enteredDigits.count-1)")
+                            }
                             vm1.title = "Delete"
                             pcv.cancelDeleteMenu?.setNeedsLayout()
                             if self.enteredDigits.count == self.expectedPinCodeLength {
                                 let pinDigits: [String] = self.enteredDigits.flatMap({"\($0.digit!)"})
-                                digitsEnteredHandler(pinDigits.joined(), true)
+                                // The last dot must have time to be displayed
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(100), execute: {
+                                    digitsEnteredHandler(pinDigits.joined(), true)
+                                })
                             }
                         }
                     }
@@ -676,7 +681,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             pcv.headerSize = 30
             pcv.header.styleColor = .clear
             pcv.header.caption.labelTextAlignment = .center
-
+            
             pcv.isUserInteractionEnabled = false
             pcv.defaultCellSize = CGSize(width: 10, height: 10)
             pcv.styleColor = .clear
@@ -695,6 +700,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         }
         self.refreshCollectionViews()
     }
+
     
     private func updateCancelDeleteButtonTitle() {
         if self.enteredDigits.count == 0 {
