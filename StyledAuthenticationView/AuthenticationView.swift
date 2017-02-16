@@ -40,6 +40,7 @@ public enum AuthErrorType {
     case touchIDUnavailable
     case unableToEvalPinCode
     case unableToEvalPassword
+    case pinEntriesDidNotMatch
     
     public func description() -> String {
         switch self {
@@ -59,6 +60,8 @@ public enum AuthErrorType {
             return "Unable to verify PIN code"
         case .unableToEvalPassword:
             return "Unable to verify Password"
+        case .pinEntriesDidNotMatch:
+            return "The verifying PIN code did not match the new one"
         }
     }
 }
@@ -96,6 +99,8 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     open dynamic var vibrateOnFail = true
     open var allowedRetries = 3
     private var tries = 0
+    
+    open dynamic var showCancel = true
     
     open dynamic var pinStyle: FlexShapeStyle = FlexShapeStyle(style: .thumb) {
         didSet {
@@ -165,6 +170,18 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     open dynamic var passwordBorderColor: UIColor = .white {
         didSet {
             self.refreshCollectionViews()
+        }
+    }
+    
+    private var bgGradientLayer: CAGradientLayer?
+    open dynamic var backgroundGradientStartColor: UIColor? {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    open dynamic var backgroundGradientEndColor: UIColor? {
+        didSet {
+            self.setNeedsLayout()
         }
     }
     
@@ -328,7 +345,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                     
                     if (totalCellWidth < contentWidth) {
                         let padding = (contentWidth - totalCellWidth) / 2.0
-                        return UIEdgeInsetsMake(0, padding, 0, padding)
+                        return UIEdgeInsetsMake(2, padding, 0, padding)
                     }
                 }
             }
@@ -368,10 +385,19 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             authHandler(true, .success)
         }
 
+        if let gradStart = self.backgroundGradientStartColor, let gradEnd = self.backgroundGradientEndColor {
+            self.bgGradientLayer?.removeFromSuperlayer()
+            self.bgGradientLayer = CAGradientLayer()
+            if let bl = self.bgGradientLayer {
+                bl.colors = [gradStart.cgColor, gradEnd.cgColor]
+                self.layer.insertSublayer(bl, at: 0)
+            }
+        }
+        
         self.authWorkflow(authHandler: authHandler)
     }
 
-    open func createPINCode(createPinHandler: @escaping ((String, Bool) -> Void)) {
+    open func createPINCode(createPinHandler: @escaping ((String, Bool, AuthErrorType) -> Void)) {
         self.enteredDigits = []
         var proposedDigitStr: String? = nil
         self.createDigitView(self.createPinHeaderText) { (digits, success) in
@@ -380,15 +406,17 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                     proposedDigitStr = digits
                     self.microPinCollectionView?.headerText = self.verifyPinHeaderText
                     self.enteredDigits = []
+                    self.updateCancelDeleteButtonTitle()
                     self.microPinCollectionView?.deselectAll()
                 }
                 else {
                     if proposedDigitStr == digits {
-                        createPinHandler(digits, true)
+                        createPinHandler(digits, true, .success)
                     }
                     else {
                         self.microPinCollectionView?.deselectAll()
                         self.enteredDigits = []
+                        self.updateCancelDeleteButtonTitle()
                         self.microPinCollectionView?.shake(shouldVibrate: self.vibrateOnFail)
                         self.microPinCollectionView?.headerText = self.createPinHeaderText
                         proposedDigitStr = nil
@@ -396,19 +424,20 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                 }
             }
             else {
-                createPinHandler("", false)
+                createPinHandler("", false, .cancelled)
             }
         }
     }
 
-    open func changePINCode(createPinHandler: @escaping ((String, Bool) -> Void)) {
+    open func changePINCode(createPinHandler: @escaping ((String, Bool, AuthErrorType) -> Void)) {
         self.authenticateWithPINCode { success, errorType in
             if success {
                 self.microPinCollectionView?.deselectAll()
+                self.updateCancelDeleteButtonTitle()
                 self.createPINCode(createPinHandler: createPinHandler)
             }
             else {
-                createPinHandler("", false)
+                createPinHandler("", false, errorType)
             }
         }
     }
@@ -454,6 +483,11 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     }
     
     // MARK: - View logic
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        self.bgGradientLayer?.frame = self.bounds
+    }
     
     private func refreshCollectionViews() {
         self.microPinCollectionView?.pinStyle = self.pinStyle
@@ -632,6 +666,8 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             self.cancelDeleteViewMenu = FlexViewMenu(menu: pcv.cancelDeleteMenu!, size: CGSize(width: 140, height: 35), hPos: .right, vPos: .footer)
             pcv.addMenu(self.cancelDeleteViewMenu!)
             
+            pcv.cancelDeleteMenu?.isHidden = !self.showCancel
+            
             pcv.removeAllSections()
             self.secRefs = []
             for _ in 0 ..< 4 {
@@ -652,6 +688,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                                 self.microPinCollectionView?.selectItem("\(self.enteredDigits.count-1)")
                             }
                             vm1.title = "Delete"
+                            pcv.cancelDeleteMenu?.isHidden = false
                             pcv.cancelDeleteMenu?.setNeedsLayout()
                             if self.enteredDigits.count == self.expectedPinCodeLength {
                                 let pinDigits: [String] = self.enteredDigits.flatMap({"\($0.digit!)"})
@@ -672,7 +709,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         
         let microPinViewWidth = self.bounds.size.width - 20
         let mxoffset:CGFloat = (self.bounds.size.width - microPinViewWidth) * 0.5
-        let mpcvRect = CGRect(origin: CGPoint(x: mxoffset, y: yoffset - 70), size: CGSize(width: microPinViewWidth, height: 70))
+        let mpcvRect = CGRect(origin: CGPoint(x: mxoffset, y: yoffset - 70), size: CGSize(width: microPinViewWidth, height: 75))
         self.microPinCollectionView = MicroPINCollectionView(frame: mpcvRect)
         if let pcv = self.microPinCollectionView {
             (pcv.itemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing = 20
@@ -685,7 +722,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             pcv.isUserInteractionEnabled = false
             pcv.defaultCellSize = CGSize(width: 10, height: 10)
             pcv.styleColor = .clear
-            pcv.viewMargins = UIEdgeInsetsMake(5, 5, 5, 5)
+            pcv.viewMargins = UIEdgeInsetsMake(5, 5, 0, 5)
             pcv.allowsMultipleSelection = true
             
             pcv.removeAllSections()
@@ -704,11 +741,14 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     
     private func updateCancelDeleteButtonTitle() {
         if self.enteredDigits.count == 0 {
+            self.pinCollectionView?.cancelDeleteMenu?.isHidden = !self.showCancel
             self.pinCollectionView?.viewMenuItems[0].title = "Cancel"
         }
         else {
             self.pinCollectionView?.viewMenuItems[0].title = "Delete"
+            self.pinCollectionView?.cancelDeleteMenu?.isHidden = false
         }
+        self.pinCollectionView?.cancelDeleteMenu?.setNeedsLayout()
     }
     
     private func getDigitRow(row: Int) -> [Digit] {

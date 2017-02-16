@@ -104,9 +104,12 @@ class AuthenticationDemoService {
                     if let liv = self.authView {
                         DispatchQueue.main.async {
                             tvc.view.addSubview(liv)
-                            liv.createPINCode(createPinHandler: { (newPin, success) in
+                            liv.createPINCode(createPinHandler: { (newPin, success, errorType) in
                                 if success {
                                     NSLog("Save the new PIN: \(newPin)")
+                                }
+                                else {
+                                    NSLog(errorType.description())
                                 }
                                 self.dismissAuthView()
                                 createPinSuccess(success)
@@ -128,9 +131,12 @@ class AuthenticationDemoService {
                         DispatchQueue.main.async {
                             tvc.view.addSubview(liv)
                             liv.pinCodeEvaluator = AuthenticationDemoService.pinCodeEvaluator
-                            liv.changePINCode(createPinHandler: { (newPin, success) in
+                            liv.changePINCode(createPinHandler: { (newPin, success, errorType) in
                                 if success {
                                     NSLog("Save the changed PIN: \(newPin)")
+                                }
+                                else {
+                                    NSLog(errorType.description())
                                 }
                                 self.dismissAuthView()
                                 createPinSuccess(success)
