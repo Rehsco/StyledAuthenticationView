@@ -384,15 +384,6 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             // There is nothing to verify!
             authHandler(true, .success)
         }
-
-        if let gradStart = self.backgroundGradientStartColor, let gradEnd = self.backgroundGradientEndColor {
-            self.bgGradientLayer?.removeFromSuperlayer()
-            self.bgGradientLayer = CAGradientLayer()
-            if let bl = self.bgGradientLayer {
-                bl.colors = [gradStart.cgColor, gradEnd.cgColor]
-                self.layer.insertSublayer(bl, at: 0)
-            }
-        }
         
         self.authWorkflow(authHandler: authHandler)
     }
@@ -637,6 +628,14 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         self.microPinCollectionView?.removeFromSuperview()
         self.pinCollectionView?.removeFromSuperview()
         
+        if let gradStart = self.backgroundGradientStartColor, let gradEnd = self.backgroundGradientEndColor {
+            self.bgGradientLayer?.removeFromSuperlayer()
+            self.bgGradientLayer = CAGradientLayer()
+            if let bl = self.bgGradientLayer {
+                bl.colors = [gradStart.cgColor, gradEnd.cgColor]
+                self.layer.insertSublayer(bl, at: 0)
+            }
+        }
         let xoffset:CGFloat = (self.bounds.size.width - 300) * 0.5
         let yoffset:CGFloat = (self.bounds.size.height - 400) * 0.5 + 30
         let pcvRect = CGRect(origin: CGPoint(x: xoffset, y: yoffset), size: CGSize(width: 300, height: 400))
