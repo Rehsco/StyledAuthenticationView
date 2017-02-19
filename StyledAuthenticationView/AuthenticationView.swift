@@ -596,7 +596,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                     }
                 }
                 else {
-                    authHandler(false, .unableToEvalPinCode)
+                    authHandler(false, .cancelled)
                 }
             }
         }
