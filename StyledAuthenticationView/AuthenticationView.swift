@@ -643,6 +643,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         if let pcv = self.pinCollectionView {
             pcv.defaultCellSize = CGSize(width: 80, height: 80)
             pcv.styleColor = .clear
+            pcv.footerSize = 35
             pcv.viewMargins = UIEdgeInsetsMake(5, 5, 5, 5)
             pcv.header.caption.labelTextAlignment = .center
             
