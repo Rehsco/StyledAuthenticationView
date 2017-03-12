@@ -662,7 +662,6 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             pcv.viewMenuItems.append(vm1)
             pcv.cancelDeleteMenu = FlexMenu()
             pcv.cancelDeleteMenu?.menuDataSource = pcv
-            pcv.viewMenuItems[0].enabled = false
             self.cancelDeleteViewMenu = FlexViewMenu(menu: pcv.cancelDeleteMenu!, size: CGSize(width: 140, height: 35), hPos: .right, vPos: .footer)
             pcv.addMenu(self.cancelDeleteViewMenu!)
             
