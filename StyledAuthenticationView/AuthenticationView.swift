@@ -677,8 +677,9 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                 let sec = pcv.getSection(section)
                 sec?.insets = UIEdgeInsetsMake(5, 5, 5, 5)
                 let pinRow = self.getDigitRow(row: r)
+                var col = 0
                 for pm in pinRow {
-                    let cellItem = FlexBaseCollectionItem(reference: "\(r),\(pm.digit)")
+                    let cellItem = FlexBaseCollectionItem(reference: "\(r),\(pm.digit ?? col)")
                     if let dtext = pm.digit {
                         cellItem.text = NSAttributedString(string: "\(dtext)")
                         cellItem.itemSelectionActionHandler = {
@@ -701,6 +702,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                     cellItem.autoDeselectCellAfter = .milliseconds(100)
                     cellItem.canMoveItem = false
                     pcv.addItem(section, item: cellItem)
+                    col += 1
                 }
             }
             self.addSubview(pcv)
