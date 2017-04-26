@@ -245,10 +245,6 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     
     private let authStateMachine = AuthStateMachine()
     
-    private class SCPMenuItem : FlexMenuItem {
-        var selectionHandler: ((Void) -> Void)?
-    }
-
     private class PINCollectionView: FlexCollectionView, FlexMenuDataSource {
         var viewMenuItems: [FlexMenuItem] = []
         var cancelDeleteMenu: FlexMenu?
@@ -290,9 +286,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         // MARK: - FlexMenuDataSource
         
         func menuItemSelected(_ menu: FlexMenu, index: Int) {
-            if let mi = self.menuItemForIndex(menu, index: index) as? SCPMenuItem {
-                mi.selectionHandler?()
-            }
+            self.menuItemForIndex(menu, index: index).selectionHandler?()
         }
         
         func menuItemForIndex(_ menu: FlexMenu, index: Int) -> FlexMenuItem {
@@ -647,7 +641,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             pcv.viewMargins = UIEdgeInsetsMake(5, 5, 5, 5)
             pcv.header.caption.labelTextAlignment = .center
             
-            let vm1 = SCPMenuItem(title: "Cancel", titleShortcut: "", color: UIColor.clear, thumbColor: UIColor.clear, thumbIcon: nil, disabledThumbIcon: nil)
+            let vm1 = FlexMenuItem(title: "Cancel", titleShortcut: "", color: UIColor.clear, thumbColor: UIColor.clear, thumbIcon: nil, disabledThumbIcon: nil)
             vm1.selectionHandler = {
                 if self.enteredDigits.count == 0 {
                     digitsEnteredHandler("", false)
