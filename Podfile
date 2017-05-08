@@ -1,8 +1,13 @@
 platform :ios, '10.0'
 
 target 'AuthenticationDemo' do
-  use_frameworks!
-  pod 'MJRFlexStyleComponents'
+    use_frameworks!
+    pod 'MJRFlexStyleComponents'
+end
+
+target 'AlternateAuthenticationDemo' do
+    use_frameworks!
+    pod 'MJRFlexStyleComponents'
 end
 
 target 'StyledAuthenticationView' do

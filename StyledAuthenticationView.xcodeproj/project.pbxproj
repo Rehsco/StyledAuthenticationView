@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		4F0C2F3D7ECC40FDCF2F6459 /* Pods_AuthenticationDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE5E8B47C0D5F68825D6986 /* Pods_AuthenticationDemo.framework */; };
+		5BC062B61EC090AD008D26EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC062B51EC090AD008D26EC /* AppDelegate.swift */; };
+		5BC062B81EC090AD008D26EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC062B71EC090AD008D26EC /* ViewController.swift */; };
+		5BC062BB1EC090AD008D26EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC062B91EC090AD008D26EC /* Main.storyboard */; };
+		5BC062BD1EC090AD008D26EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BC062BC1EC090AD008D26EC /* Assets.xcassets */; };
+		5BC062C01EC090AD008D26EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC062BE1EC090AD008D26EC /* LaunchScreen.storyboard */; };
+		5BC062C51EC0913F008D26EC /* ShakeableFlexCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE64D151E4B644900CD0271 /* ShakeableFlexCollectionView.swift */; };
+		5BC062C61EC09143008D26EC /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE64D161E4B644900CD0271 /* AuthenticationView.swift */; };
+		5BC062C81EC091D0008D26EC /* AlternateAuthenticationDemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC062C71EC091D0008D26EC /* AlternateAuthenticationDemoService.swift */; };
 		5BE64CF91E4B62DE00CD0271 /* StyledAuthenticationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BE64CF71E4B62DE00CD0271 /* StyledAuthenticationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BE64D061E4B631300CD0271 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE64D051E4B631300CD0271 /* AppDelegate.swift */; };
 		5BE64D081E4B631300CD0271 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE64D071E4B631300CD0271 /* ViewController.swift */; };
@@ -23,11 +31,20 @@
 		5BE64D1F1E4C586800CD0271 /* AuthenticationDemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE64D1E1E4C586800CD0271 /* AuthenticationDemoService.swift */; };
 		5BE64D211E4C5A1900CD0271 /* AppDelegate+RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE64D201E4C5A1900CD0271 /* AppDelegate+RootView.swift */; };
 		6955AF83247D6014527B0991 /* Pods_StyledAuthenticationView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 999CA7775082D724DBA8A0F1 /* Pods_StyledAuthenticationView.framework */; };
+		BFBB860012289D525B3D971D /* Pods_AlternateAuthenticationDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAD09007C246F6EBA6A7C971 /* Pods_AlternateAuthenticationDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		342A672C913BEB7C22670D78 /* Pods-StyledAuthenticationView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StyledAuthenticationView.release.xcconfig"; path = "Pods/Target Support Files/Pods-StyledAuthenticationView/Pods-StyledAuthenticationView.release.xcconfig"; sourceTree = "<group>"; };
 		362444765C9A9ED7B28215B4 /* Pods-AuthenticationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AuthenticationDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AuthenticationDemo/Pods-AuthenticationDemo.release.xcconfig"; sourceTree = "<group>"; };
+		5BC062B31EC090AD008D26EC /* AlternateAuthenticationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlternateAuthenticationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BC062B51EC090AD008D26EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5BC062B71EC090AD008D26EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5BC062BA1EC090AD008D26EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5BC062BC1EC090AD008D26EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5BC062BF1EC090AD008D26EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5BC062C11EC090AD008D26EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5BC062C71EC091D0008D26EC /* AlternateAuthenticationDemoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternateAuthenticationDemoService.swift; sourceTree = "<group>"; };
 		5BE64CF41E4B62DE00CD0271 /* StyledAuthenticationView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StyledAuthenticationView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BE64CF71E4B62DE00CD0271 /* StyledAuthenticationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyledAuthenticationView.h; sourceTree = "<group>"; };
 		5BE64CF81E4B62DE00CD0271 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,10 +63,21 @@
 		632B0F9947E690317C089AD1 /* Pods-AuthenticationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AuthenticationDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AuthenticationDemo/Pods-AuthenticationDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		89BEB0FBBD0CFC1A5B9AD5BF /* Pods-StyledAuthenticationView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StyledAuthenticationView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StyledAuthenticationView/Pods-StyledAuthenticationView.debug.xcconfig"; sourceTree = "<group>"; };
 		999CA7775082D724DBA8A0F1 /* Pods_StyledAuthenticationView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StyledAuthenticationView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BC7BFDBF1578890BE0EE86A /* Pods-AlternateAuthenticationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlternateAuthenticationDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AlternateAuthenticationDemo/Pods-AlternateAuthenticationDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		BAD09007C246F6EBA6A7C971 /* Pods_AlternateAuthenticationDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlternateAuthenticationDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFE5E8B47C0D5F68825D6986 /* Pods_AuthenticationDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AuthenticationDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7A9591454A02B525A6AEEFC /* Pods-AlternateAuthenticationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlternateAuthenticationDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlternateAuthenticationDemo/Pods-AlternateAuthenticationDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5BC062B01EC090AD008D26EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFBB860012289D525B3D971D /* Pods_AlternateAuthenticationDemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BE64CF01E4B62DE00CD0271 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -69,11 +97,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5BC062B41EC090AD008D26EC /* AlternateAuthenticationDemo */ = {
+			isa = PBXGroup;
+			children = (
+				5BC062B51EC090AD008D26EC /* AppDelegate.swift */,
+				5BC062C71EC091D0008D26EC /* AlternateAuthenticationDemoService.swift */,
+				5BC062B71EC090AD008D26EC /* ViewController.swift */,
+				5BC062B91EC090AD008D26EC /* Main.storyboard */,
+				5BC062BC1EC090AD008D26EC /* Assets.xcassets */,
+				5BC062BE1EC090AD008D26EC /* LaunchScreen.storyboard */,
+				5BC062C11EC090AD008D26EC /* Info.plist */,
+			);
+			path = AlternateAuthenticationDemo;
+			sourceTree = "<group>";
+		};
 		5BE64CEA1E4B62DE00CD0271 = {
 			isa = PBXGroup;
 			children = (
 				5BE64CF61E4B62DE00CD0271 /* StyledAuthenticationView */,
 				5BE64D041E4B631300CD0271 /* AuthenticationDemo */,
+				5BC062B41EC090AD008D26EC /* AlternateAuthenticationDemo */,
 				5BE64CF51E4B62DE00CD0271 /* Products */,
 				69DB9380B48660E664A39E45 /* Pods */,
 				85EC18614F620C8A47F6D736 /* Frameworks */,
@@ -85,6 +128,7 @@
 			children = (
 				5BE64CF41E4B62DE00CD0271 /* StyledAuthenticationView.framework */,
 				5BE64D031E4B631300CD0271 /* AuthenticationDemo.app */,
+				5BC062B31EC090AD008D26EC /* AlternateAuthenticationDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,8 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				5BE64D051E4B631300CD0271 /* AppDelegate.swift */,
-				5BE64D201E4C5A1900CD0271 /* AppDelegate+RootView.swift */,
 				5BE64D1E1E4C586800CD0271 /* AuthenticationDemoService.swift */,
+				5BE64D201E4C5A1900CD0271 /* AppDelegate+RootView.swift */,
 				5BE64D071E4B631300CD0271 /* ViewController.swift */,
 				5BE64D091E4B631300CD0271 /* Main.storyboard */,
 				5BE64D0C1E4B631300CD0271 /* Assets.xcassets */,
@@ -123,6 +167,8 @@
 				362444765C9A9ED7B28215B4 /* Pods-AuthenticationDemo.release.xcconfig */,
 				89BEB0FBBD0CFC1A5B9AD5BF /* Pods-StyledAuthenticationView.debug.xcconfig */,
 				342A672C913BEB7C22670D78 /* Pods-StyledAuthenticationView.release.xcconfig */,
+				9BC7BFDBF1578890BE0EE86A /* Pods-AlternateAuthenticationDemo.debug.xcconfig */,
+				D7A9591454A02B525A6AEEFC /* Pods-AlternateAuthenticationDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -132,6 +178,7 @@
 			children = (
 				CFE5E8B47C0D5F68825D6986 /* Pods_AuthenticationDemo.framework */,
 				999CA7775082D724DBA8A0F1 /* Pods_StyledAuthenticationView.framework */,
+				BAD09007C246F6EBA6A7C971 /* Pods_AlternateAuthenticationDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -150,6 +197,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		5BC062B21EC090AD008D26EC /* AlternateAuthenticationDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5BC062C41EC090AD008D26EC /* Build configuration list for PBXNativeTarget "AlternateAuthenticationDemo" */;
+			buildPhases = (
+				53EDF0510D15DEFCA6846F24 /* [CP] Check Pods Manifest.lock */,
+				5BC062AF1EC090AD008D26EC /* Sources */,
+				5BC062B01EC090AD008D26EC /* Frameworks */,
+				5BC062B11EC090AD008D26EC /* Resources */,
+				97FC60381B50C51835B4701C /* [CP] Embed Pods Frameworks */,
+				96F5A4F11A4DFA24944C70AB /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AlternateAuthenticationDemo;
+			productName = AlternateAuthenticationDemo;
+			productReference = 5BC062B31EC090AD008D26EC /* AlternateAuthenticationDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
 		5BE64CF31E4B62DE00CD0271 /* StyledAuthenticationView */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BE64CFC1E4B62DE00CD0271 /* Build configuration list for PBXNativeTarget "StyledAuthenticationView" */;
@@ -196,10 +263,15 @@
 		5BE64CEB1E4B62DE00CD0271 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Martin Jacob Rehder";
 				TargetAttributes = {
+					5BC062B21EC090AD008D26EC = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = V7Y9TF9C7U;
+						ProvisioningStyle = Automatic;
+					};
 					5BE64CF31E4B62DE00CD0271 = {
 						CreatedOnToolsVersion = 8.2.1;
 						LastSwiftMigration = 0820;
@@ -207,6 +279,7 @@
 					};
 					5BE64D021E4B631300CD0271 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = V7Y9TF9C7U;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -226,11 +299,22 @@
 			targets = (
 				5BE64CF31E4B62DE00CD0271 /* StyledAuthenticationView */,
 				5BE64D021E4B631300CD0271 /* AuthenticationDemo */,
+				5BC062B21EC090AD008D26EC /* AlternateAuthenticationDemo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5BC062B11EC090AD008D26EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BC062C01EC090AD008D26EC /* LaunchScreen.storyboard in Resources */,
+				5BC062BD1EC090AD008D26EC /* Assets.xcassets in Resources */,
+				5BC062BB1EC090AD008D26EC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BE64CF21E4B62DE00CD0271 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -253,6 +337,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		53EDF0510D15DEFCA6846F24 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		96F5A4F11A4DFA24944C70AB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AlternateAuthenticationDemo/Pods-AlternateAuthenticationDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		97FC60381B50C51835B4701C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AlternateAuthenticationDemo/Pods-AlternateAuthenticationDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A2F0E77821CE25BBBFD50DC1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -331,6 +460,18 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5BC062AF1EC090AD008D26EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BC062B81EC090AD008D26EC /* ViewController.swift in Sources */,
+				5BC062C51EC0913F008D26EC /* ShakeableFlexCollectionView.swift in Sources */,
+				5BC062C81EC091D0008D26EC /* AlternateAuthenticationDemoService.swift in Sources */,
+				5BC062C61EC09143008D26EC /* AuthenticationView.swift in Sources */,
+				5BC062B61EC090AD008D26EC /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BE64CEF1E4B62DE00CD0271 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -356,6 +497,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		5BC062B91EC090AD008D26EC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BC062BA1EC090AD008D26EC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5BC062BE1EC090AD008D26EC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BC062BF1EC090AD008D26EC /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		5BE64D091E4B631300CD0271 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -375,6 +532,38 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5BC062C21EC090AD008D26EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BC7BFDBF1578890BE0EE86A /* Pods-AlternateAuthenticationDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = V7Y9TF9C7U;
+				INFOPLIST_FILE = AlternateAuthenticationDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.AlternateAuthenticationDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		5BC062C31EC090AD008D26EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7A9591454A02B525A6AEEFC /* Pods-AlternateAuthenticationDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = V7Y9TF9C7U;
+				INFOPLIST_FILE = AlternateAuthenticationDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.AlternateAuthenticationDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		5BE64CFA1E4B62DE00CD0271 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -522,10 +711,10 @@
 			baseConfigurationReference = 632B0F9947E690317C089AD1 /* Pods-AuthenticationDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V7Y9TF9C7U;
 				INFOPLIST_FILE = AuthenticationDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.AuthenticationDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.AuthenticationDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -536,10 +725,10 @@
 			baseConfigurationReference = 362444765C9A9ED7B28215B4 /* Pods-AuthenticationDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V7Y9TF9C7U;
 				INFOPLIST_FILE = AuthenticationDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.AuthenticationDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.AuthenticationDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -548,6 +737,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5BC062C41EC090AD008D26EC /* Build configuration list for PBXNativeTarget "AlternateAuthenticationDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5BC062C21EC090AD008D26EC /* Debug */,
+				5BC062C31EC090AD008D26EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5BE64CEE1E4B62DE00CD0271 /* Build configuration list for PBXProject "StyledAuthenticationView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
