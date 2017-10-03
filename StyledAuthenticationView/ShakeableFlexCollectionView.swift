@@ -38,7 +38,7 @@ open class ShakeableFlexCollectionView: FlexCollectionView {
     private let totalShakes = 6
     private let initialShakeAmplitude: CGFloat = 40.0
     
-    func shake(shouldVibrate: Bool, completionHandler: ((Void) -> Void)? = nil) {
+    func shake(shouldVibrate: Bool, completionHandler: (() -> Void)? = nil) {
         self.numShakes = 0
         self.shakeDirection = -1
         self.shakeAmplitude = self.initialShakeAmplitude
@@ -48,7 +48,7 @@ open class ShakeableFlexCollectionView: FlexCollectionView {
         }
     }
     
-    private func performShake(_ completionHandler: ((Void) -> Void)? = nil) {
+    private func performShake(_ completionHandler: (() -> Void)? = nil) {
         UIView.animate(withDuration:0.03, animations: {
             self.transform = CGAffineTransform(translationX: CGFloat(self.shakeDirection) * self.shakeAmplitude, y: 0.0)
         }, completion: {
