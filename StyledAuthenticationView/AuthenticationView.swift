@@ -245,7 +245,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     
     private let authStateMachine = AuthStateMachine()
     
-    private class PINCollectionView: FlexCollectionView, FlexMenuDataSource {
+    private class PINCollectionView: FlexCollectionView {
         var viewMenuItems: [FlexMenuItem] = []
         var cancelDeleteMenu: FlexMenu?
 
@@ -281,20 +281,6 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                 }
             }
             return cell
-        }
-        
-        // MARK: - FlexMenuDataSource
-        
-        func menuItemSelected(_ menu: FlexMenu, index: Int) {
-            self.menuItemForIndex(menu, index: index).selectionHandler?()
-        }
-        
-        func menuItemForIndex(_ menu: FlexMenu, index: Int) -> FlexMenuItem {
-            return self.viewMenuItems[index]
-        }
-        
-        func numberOfMenuItems(_ menu: FlexMenu) -> Int {
-            return self.viewMenuItems.count
         }
     }
 
@@ -637,7 +623,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         if let pcv = self.pinCollectionView {
             pcv.defaultCellSize = CGSize(width: 80, height: 80)
             pcv.styleColor = .clear
-            pcv.footerSize = 35
+            pcv.footerSize = 50
             pcv.viewMargins = UIEdgeInsetsMake(5, 5, 5, 5)
             pcv.header.caption.labelTextAlignment = .center
             
@@ -655,7 +641,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             }
             pcv.viewMenuItems.append(vm1)
             pcv.cancelDeleteMenu = FlexMenu()
-            pcv.cancelDeleteMenu?.menuDataSource = pcv
+            pcv.cancelDeleteMenu?.menuItems = pcv.viewMenuItems
             self.cancelDeleteViewMenu = FlexViewMenu(menu: pcv.cancelDeleteMenu!, size: CGSize(width: 140, height: 35), hPos: .right, vPos: .footer)
             pcv.addMenu(self.cancelDeleteViewMenu!)
             
