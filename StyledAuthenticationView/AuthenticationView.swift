@@ -96,90 +96,90 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
 
     open var passwordEvaluator: ((String) -> Bool)?
 
-    open dynamic var vibrateOnFail = true
+    @objc open dynamic var vibrateOnFail = true
     open var allowedRetries = 3
     private var tries = 0
     
-    open dynamic var showCancel = true
+    @objc open dynamic var showCancel = true
     
-    open dynamic var pinStyle: FlexShapeStyle = FlexShapeStyle(style: .thumb) {
+    @objc open dynamic var pinStyle: FlexShapeStyle = FlexShapeStyle(style: .thumb) {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var pinBorderColor: UIColor = .white {
+    @objc open dynamic var pinBorderColor: UIColor = .white {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var pinSelectionColor: UIColor = .white {
+    @objc open dynamic var pinSelectionColor: UIColor = .white {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var pinInnerColor: UIColor = .clear {
+    @objc open dynamic var pinInnerColor: UIColor = .clear {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var pinBorderWidth: CGFloat = 0.5 {
+    @objc open dynamic var pinBorderWidth: CGFloat = 0.5 {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var pinTextColor: UIColor = .white {
+    @objc open dynamic var pinTextColor: UIColor = .white {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var pinFont: UIFont = UIFont.systemFont(ofSize: 36) {
+    @objc open dynamic var pinFont: UIFont = UIFont.systemFont(ofSize: 36) {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var cancelDeleteButtonFont: UIFont = UIFont.systemFont(ofSize: 18) {
+    @objc open dynamic var cancelDeleteButtonFont: UIFont = UIFont.systemFont(ofSize: 18) {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var cancelDeleteButtonTextColor: UIColor = .white {
+    @objc open dynamic var cancelDeleteButtonTextColor: UIColor = .white {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var passwordAcceptButtonIcon: UIImage? = nil {
+    @objc open dynamic var passwordAcceptButtonIcon: UIImage? = nil {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var headerTextColor: UIColor = .white {
+    @objc open dynamic var headerTextColor: UIColor = .white {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var headerTextFont: UIFont = UIFont.systemFont(ofSize: 18) {
+    @objc open dynamic var headerTextFont: UIFont = UIFont.systemFont(ofSize: 18) {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var passwordStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
+    @objc open dynamic var passwordStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
             self.refreshCollectionViews()
         }
     }
-    open dynamic var passwordBorderColor: UIColor = .white {
+    @objc open dynamic var passwordBorderColor: UIColor = .white {
         didSet {
             self.refreshCollectionViews()
         }
     }
     
     private var bgGradientLayer: CAGradientLayer?
-    open dynamic var backgroundGradientStartColor: UIColor? {
+    @objc open dynamic var backgroundGradientStartColor: UIColor? {
         didSet {
             self.setNeedsLayout()
         }
     }
-    open dynamic var backgroundGradientEndColor: UIColor? {
+    @objc open dynamic var backgroundGradientEndColor: UIColor? {
         didSet {
             self.setNeedsLayout()
         }
@@ -623,7 +623,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         if let pcv = self.pinCollectionView {
             pcv.defaultCellSize = CGSize(width: 80, height: 80)
             pcv.styleColor = .clear
-            pcv.footerSize = 50
+            pcv.footerSize = 35
             pcv.viewMargins = UIEdgeInsetsMake(5, 5, 5, 5)
             pcv.header.caption.labelTextAlignment = .center
             
