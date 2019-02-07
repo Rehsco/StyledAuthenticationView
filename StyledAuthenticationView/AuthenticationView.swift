@@ -325,7 +325,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                     
                     if (totalCellWidth < contentWidth) {
                         let padding = (contentWidth - totalCellWidth) / 2.0
-                        return UIEdgeInsetsMake(2, padding, 0, padding)
+                        return UIEdgeInsets.init(top: 2, left: padding, bottom: 0, right: padding)
                     }
                 }
             }
@@ -624,7 +624,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             pcv.defaultCellSize = CGSize(width: 80, height: 80)
             pcv.styleColor = .clear
             pcv.footerSize = 35
-            pcv.viewMargins = UIEdgeInsetsMake(5, 5, 5, 5)
+            pcv.viewMargins = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
             pcv.header.caption.labelTextAlignment = .center
             
             let vm1 = FlexMenuItem(title: "Cancel", titleShortcut: "", color: UIColor.clear, thumbColor: UIColor.clear, thumbIcon: nil, disabledThumbIcon: nil)
@@ -655,7 +655,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             for r in 0 ..< 4 {
                 let section = self.secRefs[r]
                 let sec = pcv.getSection(section)
-                sec?.insets = UIEdgeInsetsMake(5, 5, 5, 5)
+                sec?.insets = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
                 let pinRow = self.getDigitRow(row: r)
                 var col = 0
                 for pm in pinRow {
@@ -671,7 +671,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                             pcv.cancelDeleteMenu?.isHidden = false
                             pcv.cancelDeleteMenu?.setNeedsLayout()
                             if self.enteredDigits.count == self.expectedPinCodeLength {
-                                let pinDigits: [String] = self.enteredDigits.flatMap({"\($0.digit!)"})
+                                let pinDigits: [String] = self.enteredDigits.compactMap({"\($0.digit!)"})
                                 // The last dot must have time to be displayed
                                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(100), execute: {
                                     digitsEnteredHandler(pinDigits.joined(), true)
@@ -703,7 +703,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             pcv.isUserInteractionEnabled = false
             pcv.defaultCellSize = CGSize(width: 10, height: 10)
             pcv.styleColor = .clear
-            pcv.viewMargins = UIEdgeInsetsMake(5, 5, 0, 5)
+            pcv.viewMargins = UIEdgeInsets.init(top: 5, left: 5, bottom: 0, right: 5)
             pcv.allowsMultipleSelection = true
             
             pcv.removeAllSections()
@@ -768,7 +768,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
 
             pcv.isUserInteractionEnabled = true
             pcv.defaultCellSize = CGSize(width: 220, height: 40)
-            pcv.viewMargins = UIEdgeInsetsMake(5, 5, 5, 5)
+            pcv.viewMargins = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
             
             pcv.removeAllSections()
             let msection = pcv.addSection()
