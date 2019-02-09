@@ -1,11 +1,12 @@
 Pod::Spec.new do |s|
   s.name             = 'StyledAuthenticationView'
-  s.version          = '2.1'
+  s.version          = '2.1.1'
   s.license          = 'MIT'
   s.summary          = 'StyledAuthenticationView is a UIView with styling options to authenticate with TouchID, PIN and Passwords'
   s.homepage         = 'https://github.com/Rehsco/StyledAuthenticationView.git'
   s.authors          = { 'Martin Jacob Rehder' => 'gitrepocon01@rehsco.com' }
   s.source           = { :git => 'https://github.com/Rehsco/StyledAuthenticationView.git', :tag => s.version }
+  s.swift_version    = '4.2'
   s.ios.deployment_target = '10.0'
 
   s.dependency 'MJRFlexStyleComponents'
