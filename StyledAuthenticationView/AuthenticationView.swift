@@ -311,26 +311,6 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             }
             return cell
         }
-
-        override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-            if let secRef = self.sectionReference(atIndex: section), let itemCount = self.contentDic?[secRef]?.count, let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
-                let cellCount = CGFloat(itemCount)
-                
-                if cellCount > 0 {
-                    let spacing:CGFloat = flowLayout.minimumInteritemSpacing * 0.5
-                    let cellWidth = self.defaultCellSize.width + spacing
-                    let totalCellWidth = cellWidth*cellCount + spacing * (cellCount-1)
-                    let ci = self.viewMargins.left + self.viewMargins.right
-                    let contentWidth = collectionView.frame.size.width - ci
-                    
-                    if (totalCellWidth < contentWidth) {
-                        let padding = (contentWidth - totalCellWidth) / 2.0
-                        return UIEdgeInsets.init(top: 2, left: padding, bottom: 0, right: padding)
-                    }
-                }
-            }
-            return .zero
-        }
     }
 
     private class PasswordCollectionView: ShakeableFlexCollectionView {
@@ -620,6 +600,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         let yoffset:CGFloat = (self.bounds.size.height - 400) * 0.5 + 30
         let pcvRect = CGRect(origin: CGPoint(x: xoffset, y: yoffset), size: CGSize(width: 300, height: 400))
         self.pinCollectionView = PINCollectionView(frame: pcvRect)
+        self.pinCollectionView?.centerCellsHorizontally = true
         if let pcv = self.pinCollectionView {
             pcv.defaultCellSize = CGSize(width: 80, height: 80)
             pcv.styleColor = .clear
@@ -659,8 +640,8 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                 let pinRow = self.getDigitRow(row: r)
                 var col = 0
                 for pm in pinRow {
-                    let cellItem = FlexBaseCollectionItem(reference: "\(r),\(pm.digit ?? col)")
                     if let dtext = pm.digit {
+                        let cellItem = FlexBaseCollectionItem(reference: "\(r),\(pm.digit ?? col)")
                         cellItem.text = NSAttributedString(string: "\(dtext)")
                         cellItem.itemSelectionActionHandler = {
                             self.enteredDigits.append(Digit(digit: pm.digit))
@@ -678,10 +659,10 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                                 })
                             }
                         }
+                        cellItem.autoDeselectCellAfter = .milliseconds(100)
+                        cellItem.canMoveItem = false
+                        pcv.addItem(section, item: cellItem)
                     }
-                    cellItem.autoDeselectCellAfter = .milliseconds(100)
-                    cellItem.canMoveItem = false
-                    pcv.addItem(section, item: cellItem)
                     col += 1
                 }
             }
@@ -692,6 +673,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         let mxoffset:CGFloat = (self.bounds.size.width - microPinViewWidth) * 0.5
         let mpcvRect = CGRect(origin: CGPoint(x: mxoffset, y: yoffset - 70), size: CGSize(width: microPinViewWidth, height: 75))
         self.microPinCollectionView = MicroPINCollectionView(frame: mpcvRect)
+        self.microPinCollectionView?.centerCellsHorizontally = true
         if let pcv = self.microPinCollectionView {
             (pcv.itemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing = 20
             
