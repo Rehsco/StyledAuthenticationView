@@ -277,7 +277,6 @@
 					};
 					5BE64D021E4B631300CD0271 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = V7Y9TF9C7U;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
@@ -605,10 +604,10 @@
 			baseConfigurationReference = 632B0F9947E690317C089AD1 /* Pods-AuthenticationDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = V7Y9TF9C7U;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AuthenticationDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.AuthenticationDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.AuthenticationDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -619,10 +618,10 @@
 			baseConfigurationReference = 362444765C9A9ED7B28215B4 /* Pods-AuthenticationDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = V7Y9TF9C7U;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AuthenticationDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.AuthenticationDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.AuthenticationDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};

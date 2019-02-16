@@ -32,6 +32,9 @@ import MJRFlexStyleComponents
 
 public class StyledAuthenticationViewConfiguration {
 
+    public init() {
+    }
+    
     // Touch ID
     public var touchIDDetailText = "Authentication using Touch ID"
     

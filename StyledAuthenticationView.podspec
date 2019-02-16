@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'StyledAuthenticationView'
-  s.version          = '3.0'
+  s.version          = '3.0.1'
   s.license          = 'MIT'
   s.summary          = 'StyledAuthenticationView is a UIView with styling options to authenticate with TouchID, PIN and Passwords'
   s.homepage         = 'https://github.com/Rehsco/StyledAuthenticationView.git'
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.dependency 'MJRFlexStyleComponents'
   
   s.framework    = 'UIKit'
-  s.source_files = 'StyledAuthenticationView/*.swift'
+  s.source_files = 'StyledAuthenticationView/**/*.swift'
   s.resources    = 'StyledAuthenticationView/**/*.xcassets'
   s.requires_arc = true
 end
