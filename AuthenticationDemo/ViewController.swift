@@ -12,6 +12,11 @@ class ViewController: UIViewController {
 
     let authenticationService = AuthenticationDemoService()
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        authenticationService.updateAuthenticationViewLayout(newSize: size)
+    }
+    
     @IBAction func changePinAction(_ sender: Any) {
         authenticationService.changePin { (success) in
             if success {
@@ -19,6 +24,17 @@ class ViewController: UIViewController {
             }
             else {
                 NSLog("You failed to change the Pin!")
+            }
+        }
+    }
+    
+    @IBAction func changePasswordAction(_ sender: Any) {
+        authenticationService.changePassword { (success) in
+            if success {
+                NSLog("You changed the Password")
+            }
+            else {
+                NSLog("You failed to change the Password!")
             }
         }
     }

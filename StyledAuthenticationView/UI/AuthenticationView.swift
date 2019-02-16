@@ -67,8 +67,13 @@ public enum AuthErrorType {
 }
 
 open class AuthenticationView: UIView, UITextFieldDelegate {
+    private let passwordFieldId = "passwordField"
     private var context = LAContext()
     
+    private var bgGradientLayer: CAGradientLayer?
+
+    private var passwordCollectionView: PasswordCollectionView?
+
     private var pinCollectionView: PINCollectionView?
     private var microPinCollectionView: MicroPINCollectionView?
     private var secRefs: [String] = []
@@ -78,112 +83,22 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     private var pwItem: FlexTextFieldCollectionItem?
     
     private var enteredDigits: [Digit] = []
-    
-    open var pinHeaderText: String = "Enter PIN Code"
-    open var passwordHeaderText: String = "Enter Password"
-    open var usePinCodeText = "Use PIN Code"
-    open var touchIDDetailText = "Authentication using Touch ID"
-    
-    open var createPinHeaderText = "Enter new PIN Code"
-    open var verifyPinHeaderText = "Verify PIN Code"
 
-    open var expectedPinCodeLength = 6
+    private var tries = 0
+
+    // TODO: Refactor to use DIP
+    open var configuration = StyledAuthenticationViewConfiguration() {
+        didSet {
+            refreshCollectionViews()
+        }
+    }
+
+    // TODO: Refactor to use DIP
     open var pinCodeEvaluator: ((String) -> Bool)?
 
-    private var passwordCollectionView: PasswordCollectionView?
-    open var createPasswordHeaderText = "Enter new Password"
-    open var verifyPasswordHeaderText = "Verify Password"
-
+    // TODO: Refactor to use DIP
     open var passwordEvaluator: ((String) -> Bool)?
-
-    @objc open dynamic var vibrateOnFail = true
-    open var allowedRetries = 3
-    private var tries = 0
     
-    @objc open dynamic var showCancel = true
-    
-    @objc open dynamic var pinStyle: FlexShapeStyle = FlexShapeStyle(style: .thumb) {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var pinBorderColor: UIColor = .white {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var pinSelectionColor: UIColor = .white {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var pinInnerColor: UIColor = .clear {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var pinBorderWidth: CGFloat = 0.5 {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var pinTextColor: UIColor = .white {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var pinFont: UIFont = UIFont.systemFont(ofSize: 36) {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var cancelDeleteButtonFont: UIFont = UIFont.systemFont(ofSize: 18) {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var cancelDeleteButtonTextColor: UIColor = .white {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var passwordAcceptButtonIcon: UIImage? = nil {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var headerTextColor: UIColor = .white {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var headerTextFont: UIFont = UIFont.systemFont(ofSize: 18) {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var passwordStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    @objc open dynamic var passwordBorderColor: UIColor = .white {
-        didSet {
-            self.refreshCollectionViews()
-        }
-    }
-    
-    private var bgGradientLayer: CAGradientLayer?
-    @objc open dynamic var backgroundGradientStartColor: UIColor? {
-        didSet {
-            self.setNeedsLayout()
-        }
-    }
-    @objc open dynamic var backgroundGradientEndColor: UIColor? {
-        didSet {
-            self.setNeedsLayout()
-        }
-    }
     
     private class Digit {
         var digit: Int?
@@ -192,146 +107,9 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             self.digit = digit
         }
     }
-    
-    enum AuthenticationStateType {
-        case touchID
-        case pin
-        case password
-    }
-    
-    private class AuthStateMachine {
-        var currentState: AuthenticationStateType = .touchID
-        var useTouchID: Bool = false
-        var usePin: Bool = false
-        var usePassword: Bool = false
-        
-        func initiate() -> Bool {
-            if useTouchID {
-                currentState = .touchID
-                return true
-            }
-            else if usePin {
-                currentState = .pin
-                return true
-            }
-            else if usePassword {
-                currentState = .password
-                return true
-            }
-            return false
-        }
-        
-        func next() -> Bool {
-            if currentState == .password {
-                return false
-            }
-            if currentState == .touchID {
-                currentState = .pin
-                if !self.usePin {
-                    return self.next()
-                }
-                return true
-            }
-            if currentState == .pin {
-                currentState = .password
-                if !self.usePassword {
-                    return self.next()
-                }
-                return true
-            }
-            return false
-        }
-    }
-    
+
     private let authStateMachine = AuthStateMachine()
     
-    private class PINCollectionView: FlexCollectionView {
-        var viewMenuItems: [FlexMenuItem] = []
-        var cancelDeleteMenu: FlexMenu?
-
-        var pinStyle = FlexShapeStyle(style: .thumb)
-        var pinBorderColor: UIColor = .white
-        var pinSelectionColor: UIColor = .white
-        var pinInnerColor: UIColor = .clear
-        var pinBorderWidth: CGFloat = 0.5
-        var pinFont: UIFont = UIFont.systemFont(ofSize: 36)
-        var pinTextColor: UIColor = .white
-        
-        override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = super.collectionView(collectionView, cellForItemAt: indexPath)
-            if let pinCell = cell as? FlexBaseCollectionViewCell {
-                pinCell.flexContentView?.style = self.pinStyle
-                
-                if pinCell.item?.text != nil {
-                    pinCell.selectedStyleColor = self.pinSelectionColor
-                    pinCell.borderColor = self.pinBorderColor
-                    pinCell.selectedBorderColor = self.pinBorderColor
-                    pinCell.borderWidth = self.pinBorderWidth
-                    pinCell.selectedBorderWidth = self.pinBorderWidth
-                    pinCell.textLabel?.labelFont = self.pinFont
-                    pinCell.textLabel?.labelTextColor = self.pinTextColor
-                    pinCell.textLabel?.labelTextAlignment = .center
-                    pinCell.styleColor = self.pinInnerColor
-                }
-                else {
-                    pinCell.selectedStyleColor = .clear
-                    pinCell.borderColor = .clear
-                    pinCell.selectedBorderColor = .clear
-                    pinCell.styleColor = .clear
-                }
-            }
-            return cell
-        }
-    }
-
-    private class MicroPINCollectionView: ShakeableFlexCollectionView {
-        var pinStyle = FlexShapeStyle(style: .thumb)
-        var pinBorderColor: UIColor = .white
-
-        func deselectAll() {
-            if let section = self.sectionReference(atIndex: 0) {
-                if let secItems = self.contentDic?[section] {
-                    for item in secItems {
-                        self.deselectItem(item.reference)
-                    }
-                }
-            }
-        }
-        
-        override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = super.collectionView(collectionView, cellForItemAt: indexPath)
-            if let pinCell = cell as? FlexBaseCollectionViewCell {
-                pinCell.flexContentView?.style = self.pinStyle
-                pinCell.styleColor = .clear
-                pinCell.selectedStyleColor = self.pinBorderColor
-                pinCell.borderColor = self.pinBorderColor
-                pinCell.selectedBorderColor = self.pinBorderColor
-                pinCell.borderWidth = 0.5
-                pinCell.selectedBorderWidth = 0.5
-            }
-            return cell
-        }
-    }
-
-    private class PasswordCollectionView: ShakeableFlexCollectionView {
-        var pwStyle = FlexShapeStyle(style: .thumb)
-        var pwBorderColor: UIColor = .white
-        
-        override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = super.collectionView(collectionView, cellForItemAt: indexPath)
-            if let pinCell = cell as? FlexBaseCollectionViewCell {
-                pinCell.flexContentView?.style = self.pwStyle
-                pinCell.styleColor = .clear
-                pinCell.selectedStyleColor = .clear
-                pinCell.borderColor = self.pwBorderColor
-                pinCell.selectedBorderColor = self.pwBorderColor
-                pinCell.borderWidth = 1
-                pinCell.selectedBorderWidth = 1
-            }
-            return cell
-        }
-    }
-
     // MARK: - Public interface
     
     open func authenticate(useTouchID: Bool, usePin: Bool, usePassword: Bool, authHandler: @escaping ((Bool, AuthErrorType) -> Void)) {
@@ -351,13 +129,13 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     open func createPINCode(createPinHandler: @escaping ((String, Bool, AuthErrorType) -> Void)) {
         self.enteredDigits = []
         var proposedDigitStr: String? = nil
-        self.createDigitView(self.createPinHeaderText) { (digits, success) in
+        self.createDigitView(configuration.createPinHeaderText) { (digits, success) in
             if success {
                 if proposedDigitStr == nil {
                     proposedDigitStr = digits
-                    self.microPinCollectionView?.headerText = self.verifyPinHeaderText
+                    self.microPinCollectionView?.headerText = self.configuration.verifyPinHeaderText
                     self.enteredDigits = []
-                    self.updateCancelDeleteButtonTitle()
+                    self.pinCollectionView?.updateCancelDeleteButtonTitle(forEnteredDigitsCount: self.enteredDigits.count)
                     self.microPinCollectionView?.deselectAll()
                 }
                 else {
@@ -367,9 +145,9 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                     else {
                         self.microPinCollectionView?.deselectAll()
                         self.enteredDigits = []
-                        self.updateCancelDeleteButtonTitle()
-                        self.microPinCollectionView?.shake(shouldVibrate: self.vibrateOnFail)
-                        self.microPinCollectionView?.headerText = self.createPinHeaderText
+                        self.pinCollectionView?.updateCancelDeleteButtonTitle(forEnteredDigitsCount: self.enteredDigits.count)
+                        self.microPinCollectionView?.shake(shouldVibrate: self.configuration.vibrateOnFail)
+                        self.microPinCollectionView?.headerText = self.configuration.createPinHeaderText
                         proposedDigitStr = nil
                     }
                 }
@@ -384,7 +162,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         self.authenticateWithPINCode { success, errorType in
             if success {
                 self.microPinCollectionView?.deselectAll()
-                self.updateCancelDeleteButtonTitle()
+                self.pinCollectionView?.updateCancelDeleteButtonTitle(forEnteredDigitsCount: self.enteredDigits.count)
                 self.createPINCode(createPinHandler: createPinHandler)
             }
             else {
@@ -395,13 +173,14 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
 
     open func createPassword(createPasswordHandler: @escaping ((String, Bool) -> Void)) {
         var proposedPassword: String? = nil
-        self.createPasswordView(self.createPasswordHeaderText) { (password, success) in
+        self.createPasswordView(configuration.createPasswordHeaderText) { (password, success) in
             if success {
                 if proposedPassword == nil {
                     proposedPassword = password
                     self.pwItem?.text = NSAttributedString(string: "")
-                    self.passwordCollectionView?.headerText = self.verifyPasswordHeaderText
+                    self.passwordCollectionView?.headerText = self.configuration.verifyPasswordHeaderText
                     self.passwordCollectionView?.itemCollectionView.reloadData()
+                    self.showKeyboardForEnteringPassword()
                 }
                 else {
                     if proposedPassword == password {
@@ -410,8 +189,8 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                     else {
                         self.pwItem?.text = NSAttributedString(string: "")
                         self.passwordCollectionView?.itemCollectionView.reloadData()
-                        self.passwordCollectionView?.shake(shouldVibrate: self.vibrateOnFail)
-                        self.passwordCollectionView?.headerText = self.createPasswordHeaderText
+                        self.passwordCollectionView?.shake(shouldVibrate: self.configuration.vibrateOnFail)
+                        self.passwordCollectionView?.headerText = self.configuration.createPasswordHeaderText
                         proposedPassword = nil
                     }
                 }
@@ -435,34 +214,96 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     
     // MARK: - View logic
     
+    fileprivate func getPasswordCell() -> FlexTextFieldCollectionViewCell? {
+        if let ip = self.passwordCollectionView?.getIndexPathForItem(self.passwordFieldId) {
+            if let cell = passwordCollectionView?.itemCollectionView.cellForItem(at: ip) as? FlexTextFieldCollectionViewCell {
+                return cell
+            }
+        }
+        return nil
+    }
+    
+    private func showKeyboardForEnteringPassword() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
+            let cell = self.getPasswordCell()
+            cell?.textField?.becomeFirstResponder()
+        }
+    }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
-        self.bgGradientLayer?.frame = self.bounds
+        bgGradientLayer?.frame = self.bounds
+        
+        microPinCollectionView?.frame = calculateMicroPinFrame()
+        pinCollectionView?.frame = calculatePinFrame()
+        passwordCollectionView?.frame = calculatePasswordViewFrame()
+        pinCollectionView?.defaultCellSize = calculateFittingPinCellSize()
     }
     
     private func refreshCollectionViews() {
-        self.microPinCollectionView?.pinStyle = self.pinStyle
-        self.microPinCollectionView?.pinBorderColor = self.pinBorderColor
-        self.microPinCollectionView?.header.caption.labelTextColor = self.headerTextColor
-        self.microPinCollectionView?.header.caption.labelFont = self.headerTextFont
-        self.microPinCollectionView?.itemCollectionView.reloadData()
+        microPinCollectionView?.applyConfiguration(configuration)
+        passwordCollectionView?.applyConfiguration(configuration)
+        pinCollectionView?.applyConfiguration(configuration)
+    }
+    
+    private func removeAllSubViews() {
+        microPinCollectionView?.removeFromSuperview()
+        pinCollectionView?.removeFromSuperview()
+        passwordCollectionView?.removeFromSuperview()
+    }
 
-        self.passwordCollectionView?.pwStyle = self.passwordStyle
-        self.passwordCollectionView?.pwBorderColor = self.passwordBorderColor
-        self.passwordCollectionView?.header.caption.labelTextColor = self.headerTextColor
-        self.passwordCollectionView?.header.caption.labelFont = self.headerTextFont
-        self.passwordCollectionView?.itemCollectionView.reloadData()
+    private func calculateSecurityViewRect() -> CGRect {
+        let minRect = CGRect(origin: .zero, size: CGSize(width: min(bounds.width, configuration.securityViewPreferredSize.width), height: min(bounds.height, configuration.securityViewPreferredSize.height)))
+        let secViewRect = CGRect(origin: .zero, size: configuration.securityViewPreferredSize)
+        let fitRect = CGRectHelper.AspectFitRectInRect(secViewRect, rtarget: minRect)
+        return CGRect(origin: CGPoint(x: bounds.midX - fitRect.midX, y: bounds.midY - fitRect.midY), size: fitRect.size)
+    }
 
-        self.pinCollectionView?.pinStyle = self.pinStyle
-        self.pinCollectionView?.pinBorderColor = self.pinBorderColor
-        self.pinCollectionView?.pinSelectionColor = self.pinSelectionColor
-        self.pinCollectionView?.pinInnerColor = self.pinInnerColor
-        self.pinCollectionView?.pinBorderWidth = self.pinBorderWidth
-        self.pinCollectionView?.pinFont = self.pinFont
-        self.pinCollectionView?.pinTextColor = self.pinTextColor
-        self.pinCollectionView?.cancelDeleteMenu?.separatorFont = self.cancelDeleteButtonFont
-        self.pinCollectionView?.cancelDeleteMenu?.separatorTextColor = self.cancelDeleteButtonTextColor
-        self.pinCollectionView?.itemCollectionView.reloadData()
+    private func calculatePasswordViewFrame() -> CGRect {
+        let secViewFrame = calculateSecurityViewRect()
+        let passwordViewFrame = CGRect(origin: secViewFrame.origin, size: CGSize(width: secViewFrame.size.width, height: configuration.passwordViewHeight))
+        return passwordViewFrame
+    }
+
+    private func calculateMicroPinFrame() -> CGRect {
+        let secViewFrame = calculateSecurityViewRect()
+        let microPinViewFrame = CGRect(origin: secViewFrame.origin, size: CGSize(width: secViewFrame.size.width, height: configuration.microPinViewHeight))
+        return microPinViewFrame
+    }
+
+    private func calculatePinFrame() -> CGRect {
+        let secViewFrame = calculateSecurityViewRect()
+        let microPinViewFrame = CGRect(origin: CGPoint(x: secViewFrame.origin.x, y: secViewFrame.origin.y + configuration.microPinViewHeight), size: CGSize(width: secViewFrame.size.width, height: secViewFrame.size.height - configuration.microPinViewHeight))
+        return microPinViewFrame
+    }
+
+    private func calculateFittingPinCellSize() -> CGSize {
+        if let pinView = pinCollectionView {
+            let maxPinViewSize = calculatePinFrame().size
+            let pinViewSize = CGSize(width: maxPinViewSize.width, height: maxPinViewSize.height - configuration.pinViewFooterHeight)
+            let collMargins = pinView.viewMargins
+            let horizontalSpacing = pinView.getHorizontalSpacing()
+            
+            var rowWidth: CGFloat = 0
+            if #available(iOS 11.0, *), pinViewSize.width == bounds.width {
+                rowWidth = pinViewSize.width - (collMargins.left + collMargins.right + pinView.itemCollectionView.safeAreaInsets.left + pinView.itemCollectionView.safeAreaInsets.right)
+            } else {
+                rowWidth = pinViewSize.width - (collMargins.left + collMargins.right)
+            }
+            rowWidth -= pinView.getHorizontalSectionInset(forSection: 0)
+            
+            let cellWidth = (rowWidth - max(0, 3 - 1) * horizontalSpacing) / 3
+            
+            let verticalSpacing = pinView.getVerticalSpacing()
+            let rowHeight = pinViewSize.height - (collMargins.top + collMargins.bottom + pinView.getVerticalSectionInset(forSection: 0))
+
+            let cellHeight = (rowHeight - max(0, 4 - 1) * verticalSpacing) / 4
+
+            if cellWidth < configuration.pinCellPreferredSize.width || cellHeight < configuration.pinCellPreferredSize.height {
+                return CGRectHelper.AspectFitRectInRect(CGRect(origin: .zero, size: configuration.pinCellPreferredSize), rtarget: CGRect(origin: .zero, size: CGSize(width: cellWidth, height: cellHeight))).size
+            }
+        }
+        return configuration.pinCellPreferredSize
     }
     
     // MARK: - Business logic
@@ -496,11 +337,11 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
 
     private func authenticateWithTouchID(_ authHandler: @escaping ((Bool, AuthErrorType) -> Void)) {
         if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error:nil) {
-            context.localizedFallbackTitle = self.usePinCodeText
-            context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: self.touchIDDetailText,
+            context.localizedFallbackTitle = self.configuration.usePinCodeText
+            context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: self.configuration.touchIDDetailText,
                                    reply: { (success : Bool, error : Error? ) -> Void in
                                     
-                                    DispatchQueue.main.async(execute: {
+                                    DispatchQueue.main.async {
                                         if success {
                                             authHandler(true, .success)
                                         }
@@ -516,7 +357,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                                                 authHandler(false, .touchIDUnavailable)
                                             }
                                         }
-                                    })
+                                    }
             })
         } else {
             authHandler(false, .touchIDUnavailable)
@@ -527,7 +368,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         self.tries = 0
         if let pce = self.pinCodeEvaluator {
             self.enteredDigits = []
-            self.createDigitView(self.pinHeaderText) { (digits, success) in
+            self.createDigitView(self.configuration.pinHeaderText) { (digits, success) in
                 if success {
                     if pce(digits) {
                         authHandler(true, .success)
@@ -535,14 +376,14 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                     else {
                         // Retry
                         self.tries += 1
-                        if self.allowedRetries == self.tries {
+                        if self.configuration.allowedRetries == self.tries {
                             authHandler(false, .tooManyRetries)
                         }
                         else {
                             self.enteredDigits = []
-                            self.updateCancelDeleteButtonTitle()
+                            self.pinCollectionView?.updateCancelDeleteButtonTitle(forEnteredDigitsCount: self.enteredDigits.count)
                             self.microPinCollectionView?.deselectAll()
-                            self.microPinCollectionView?.shake(shouldVibrate: self.vibrateOnFail)
+                            self.microPinCollectionView?.shake(shouldVibrate: self.configuration.vibrateOnFail)
                         }
                     }
                 }
@@ -559,7 +400,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     private func authenticateWithPassword(_ authHandler: @escaping ((Bool, AuthErrorType) -> Void)) {
         self.tries = 0
         if let pce = self.passwordEvaluator {
-            self.createPasswordView(self.passwordHeaderText) { (password, success) in
+            self.createPasswordView(self.configuration.passwordHeaderText) { (password, success) in
                 if success {
                     if pce(password) {
                         authHandler(true, .success)
@@ -567,12 +408,12 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                     else {
                         // Retry
                         self.tries += 1
-                        if self.allowedRetries == self.tries {
+                        if self.configuration.allowedRetries == self.tries {
                             authHandler(false, .tooManyRetries)
                         }
                         else {
                             self.pwItem?.text = NSAttributedString(string: "")
-                            self.passwordCollectionView?.shake(shouldVibrate: self.vibrateOnFail)
+                            self.passwordCollectionView?.shake(shouldVibrate: self.configuration.vibrateOnFail)
                             self.passwordCollectionView?.itemCollectionView.reloadData()
                         }
                     }
@@ -585,10 +426,9 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     }
 
     private func createDigitView(_ headerText: String, digitsEnteredHandler: @escaping ((String, Bool) -> Void)) {
-        self.microPinCollectionView?.removeFromSuperview()
-        self.pinCollectionView?.removeFromSuperview()
-        
-        if let gradStart = self.backgroundGradientStartColor, let gradEnd = self.backgroundGradientEndColor {
+        removeAllSubViews()
+
+        if let gradStart = configuration.backgroundGradientStartColor, let gradEnd = configuration.backgroundGradientEndColor {
             self.bgGradientLayer?.removeFromSuperlayer()
             self.bgGradientLayer = CAGradientLayer()
             if let bl = self.bgGradientLayer {
@@ -596,13 +436,11 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                 self.layer.insertSublayer(bl, at: 0)
             }
         }
-        let xoffset:CGFloat = (self.bounds.size.width - 300) * 0.5
-        let yoffset:CGFloat = (self.bounds.size.height - 400) * 0.5 + 30
-        let pcvRect = CGRect(origin: CGPoint(x: xoffset, y: yoffset), size: CGSize(width: 300, height: 400))
-        self.pinCollectionView = PINCollectionView(frame: pcvRect)
-        self.pinCollectionView?.centerCellsHorizontally = true
+        self.pinCollectionView = PINCollectionView(frame: calculatePinFrame())
         if let pcv = self.pinCollectionView {
-            pcv.defaultCellSize = CGSize(width: 80, height: 80)
+            pcv.shouldShowCancel = configuration.showCancel
+            pcv.centerCellsHorizontally = true
+            pcv.defaultCellSize = calculateFittingPinCellSize()
             pcv.styleColor = .clear
             pcv.footerSize = 35
             pcv.viewMargins = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
@@ -616,7 +454,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                 else {
                     self.microPinCollectionView?.deselectItem("\(self.enteredDigits.count-1)")
                     self.enteredDigits.removeLast()
-                    self.updateCancelDeleteButtonTitle()
+                    self.pinCollectionView?.updateCancelDeleteButtonTitle(forEnteredDigitsCount: self.enteredDigits.count)
                     pcv.cancelDeleteMenu?.setNeedsLayout()
                 }
             }
@@ -626,7 +464,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             self.cancelDeleteViewMenu = FlexViewMenu(menu: pcv.cancelDeleteMenu!, size: CGSize(width: 140, height: 35), hPos: .right, vPos: .footer)
             pcv.addMenu(self.cancelDeleteViewMenu!)
             
-            pcv.cancelDeleteMenu?.isHidden = !self.showCancel
+            pcv.cancelDeleteMenu?.isHidden = !configuration.showCancel
             
             pcv.removeAllSections()
             self.secRefs = []
@@ -651,7 +489,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
                             vm1.title = "Delete"
                             pcv.cancelDeleteMenu?.isHidden = false
                             pcv.cancelDeleteMenu?.setNeedsLayout()
-                            if self.enteredDigits.count == self.expectedPinCodeLength {
+                            if self.enteredDigits.count == self.configuration.expectedPinCodeLength {
                                 let pinDigits: [String] = self.enteredDigits.compactMap({"\($0.digit!)"})
                                 // The last dot must have time to be displayed
                                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(100), execute: {
@@ -669,10 +507,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             self.addSubview(pcv)
         }
         
-        let microPinViewWidth = self.bounds.size.width - 20
-        let mxoffset:CGFloat = (self.bounds.size.width - microPinViewWidth) * 0.5
-        let mpcvRect = CGRect(origin: CGPoint(x: mxoffset, y: yoffset - 70), size: CGSize(width: microPinViewWidth, height: 75))
-        self.microPinCollectionView = MicroPINCollectionView(frame: mpcvRect)
+        self.microPinCollectionView = MicroPINCollectionView(frame: calculateMicroPinFrame())
         self.microPinCollectionView?.centerCellsHorizontally = true
         if let pcv = self.microPinCollectionView {
             (pcv.itemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing = 20
@@ -690,7 +525,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             
             pcv.removeAllSections()
             let msection = pcv.addSection()
-            for col in 0..<self.expectedPinCodeLength {
+            for col in 0..<configuration.expectedPinCodeLength {
                 let cellItem = FlexBaseCollectionItem(reference: "\(col)")
                 cellItem.canMoveItem = false
                 cellItem.contentInteractionWillSelectItem = false
@@ -699,19 +534,6 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             self.addSubview(pcv)
         }
         self.refreshCollectionViews()
-    }
-
-    
-    private func updateCancelDeleteButtonTitle() {
-        if self.enteredDigits.count == 0 {
-            self.pinCollectionView?.cancelDeleteMenu?.isHidden = !self.showCancel
-            self.pinCollectionView?.viewMenuItems[0].title = "Cancel"
-        }
-        else {
-            self.pinCollectionView?.viewMenuItems[0].title = "Delete"
-            self.pinCollectionView?.cancelDeleteMenu?.isHidden = false
-        }
-        self.pinCollectionView?.cancelDeleteMenu?.setNeedsLayout()
     }
     
     private func getDigitRow(row: Int) -> [Digit] {
@@ -732,15 +554,9 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
     }
     
     private func createPasswordView(_ headerText: String, passwordEnteredHandler: @escaping ((String, Bool) -> Void)) {
-        self.microPinCollectionView?.removeFromSuperview()
-        self.pinCollectionView?.removeFromSuperview()
-        self.passwordCollectionView?.removeFromSuperview()
+        removeAllSubViews()
         
-        let yoffset:CGFloat = (self.bounds.size.height - 400) * 0.5 + 30
-        let microPinViewWidth = self.bounds.size.width - 20
-        let mxoffset:CGFloat = (self.bounds.size.width - microPinViewWidth) * 0.5
-        let mpcvRect = CGRect(origin: CGPoint(x: mxoffset, y: yoffset - 70), size: CGSize(width: microPinViewWidth, height: 120))
-        self.passwordCollectionView = PasswordCollectionView(frame: mpcvRect)
+        self.passwordCollectionView = PasswordCollectionView(frame: calculatePasswordViewFrame())
         if let pcv = self.passwordCollectionView {
             pcv.styleColor = .clear
             pcv.headerText = headerText
@@ -754,8 +570,8 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             
             pcv.removeAllSections()
             let msection = pcv.addSection()
-            let pwIcon = self.passwordAcceptButtonIcon ?? UIImage(named: "Accept_36pt")
-            self.pwItem = FlexTextFieldCollectionItem(reference: "passwordField", accessoryImage: pwIcon) {
+            let pwIcon = configuration.passwordAcceptButtonIcon
+            self.pwItem = FlexTextFieldCollectionItem(reference: passwordFieldId, accessoryImage: pwIcon) {
                 if let pw = self.pwItem?.text?.string {
                     if pw != "" {
                         passwordEnteredHandler(pw, true)
@@ -772,13 +588,15 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
             pcv.addItem(msection, item: self.pwItem!)
             self.addSubview(pcv)
         }
-        self.refreshCollectionViews()
+        refreshCollectionViews()
+        showKeyboardForEnteringPassword()
     }
 
     // MARK: - UITextFieldDelegate
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        pwItem?.accessoryImageActionHandler?()
         return true
     }
 }

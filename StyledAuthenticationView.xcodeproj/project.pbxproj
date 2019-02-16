@@ -8,6 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		4F0C2F3D7ECC40FDCF2F6459 /* Pods_AuthenticationDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE5E8B47C0D5F68825D6986 /* Pods_AuthenticationDemo.framework */; };
+		5B861F5722180AD800DBDF4B /* AuthStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F5622180AD800DBDF4B /* AuthStateMachine.swift */; };
+		5B861F5922180C9600DBDF4B /* AuthStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F5622180AD800DBDF4B /* AuthStateMachine.swift */; };
+		5B861F5B2218139A00DBDF4B /* StyledAuthenticationViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F5A2218139A00DBDF4B /* StyledAuthenticationViewConfiguration.swift */; };
+		5B861F5C2218139A00DBDF4B /* StyledAuthenticationViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F5A2218139A00DBDF4B /* StyledAuthenticationViewConfiguration.swift */; };
+		5B861F652218228F00DBDF4B /* PasswordCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F642218228F00DBDF4B /* PasswordCollectionView.swift */; };
+		5B861F662218228F00DBDF4B /* PasswordCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F642218228F00DBDF4B /* PasswordCollectionView.swift */; };
+		5B861F682218244C00DBDF4B /* MicroPINCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F672218244C00DBDF4B /* MicroPINCollectionView.swift */; };
+		5B861F692218244C00DBDF4B /* MicroPINCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F672218244C00DBDF4B /* MicroPINCollectionView.swift */; };
+		5B861F6B221824A400DBDF4B /* PINCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F6A221824A400DBDF4B /* PINCollectionView.swift */; };
+		5B861F6C221824A400DBDF4B /* PINCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F6A221824A400DBDF4B /* PINCollectionView.swift */; };
+		5B861F6F2218307100DBDF4B /* CGRectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F6E2218307100DBDF4B /* CGRectHelper.swift */; };
+		5B861F702218307100DBDF4B /* CGRectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861F6E2218307100DBDF4B /* CGRectHelper.swift */; };
 		5BE64CF91E4B62DE00CD0271 /* StyledAuthenticationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BE64CF71E4B62DE00CD0271 /* StyledAuthenticationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BE64D061E4B631300CD0271 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE64D051E4B631300CD0271 /* AppDelegate.swift */; };
 		5BE64D081E4B631300CD0271 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE64D071E4B631300CD0271 /* ViewController.swift */; };
@@ -28,6 +40,12 @@
 /* Begin PBXFileReference section */
 		342A672C913BEB7C22670D78 /* Pods-StyledAuthenticationView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StyledAuthenticationView.release.xcconfig"; path = "Pods/Target Support Files/Pods-StyledAuthenticationView/Pods-StyledAuthenticationView.release.xcconfig"; sourceTree = "<group>"; };
 		362444765C9A9ED7B28215B4 /* Pods-AuthenticationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AuthenticationDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AuthenticationDemo/Pods-AuthenticationDemo.release.xcconfig"; sourceTree = "<group>"; };
+		5B861F5622180AD800DBDF4B /* AuthStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStateMachine.swift; sourceTree = "<group>"; };
+		5B861F5A2218139A00DBDF4B /* StyledAuthenticationViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledAuthenticationViewConfiguration.swift; sourceTree = "<group>"; };
+		5B861F642218228F00DBDF4B /* PasswordCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCollectionView.swift; sourceTree = "<group>"; };
+		5B861F672218244C00DBDF4B /* MicroPINCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroPINCollectionView.swift; sourceTree = "<group>"; };
+		5B861F6A221824A400DBDF4B /* PINCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PINCollectionView.swift; sourceTree = "<group>"; };
+		5B861F6E2218307100DBDF4B /* CGRectHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectHelper.swift; sourceTree = "<group>"; };
 		5BE64CF41E4B62DE00CD0271 /* StyledAuthenticationView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StyledAuthenticationView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BE64CF71E4B62DE00CD0271 /* StyledAuthenticationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyledAuthenticationView.h; sourceTree = "<group>"; };
 		5BE64CF81E4B62DE00CD0271 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,6 +87,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B861F5822180B5600DBDF4B /* Flex Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5BE64D151E4B644900CD0271 /* ShakeableFlexCollectionView.swift */,
+			);
+			path = "Flex Extensions";
+			sourceTree = "<group>";
+		};
+		5B861F5D221813A300DBDF4B /* Styling */ = {
+			isa = PBXGroup;
+			children = (
+				5B861F5A2218139A00DBDF4B /* StyledAuthenticationViewConfiguration.swift */,
+			);
+			path = Styling;
+			sourceTree = "<group>";
+		};
+		5B861F612218221200DBDF4B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5B861F5D221813A300DBDF4B /* Styling */,
+				5B861F5822180B5600DBDF4B /* Flex Extensions */,
+				5B861F622218221C00DBDF4B /* Sub Views */,
+				5BE64D161E4B644900CD0271 /* AuthenticationView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		5B861F622218221C00DBDF4B /* Sub Views */ = {
+			isa = PBXGroup;
+			children = (
+				5B861F642218228F00DBDF4B /* PasswordCollectionView.swift */,
+				5B861F672218244C00DBDF4B /* MicroPINCollectionView.swift */,
+				5B861F6A221824A400DBDF4B /* PINCollectionView.swift */,
+			);
+			path = "Sub Views";
+			sourceTree = "<group>";
+		};
+		5B861F632218225000DBDF4B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5B861F5622180AD800DBDF4B /* AuthStateMachine.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5B861F6D2218306300DBDF4B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5B861F6E2218307100DBDF4B /* CGRectHelper.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		5BE64CEA1E4B62DE00CD0271 = {
 			isa = PBXGroup;
 			children = (
@@ -92,8 +163,9 @@
 		5BE64CF61E4B62DE00CD0271 /* StyledAuthenticationView */ = {
 			isa = PBXGroup;
 			children = (
-				5BE64D151E4B644900CD0271 /* ShakeableFlexCollectionView.swift */,
-				5BE64D161E4B644900CD0271 /* AuthenticationView.swift */,
+				5B861F6D2218306300DBDF4B /* Extensions */,
+				5B861F632218225000DBDF4B /* Model */,
+				5B861F612218221200DBDF4B /* UI */,
 				5BE64CF71E4B62DE00CD0271 /* StyledAuthenticationView.h */,
 				5BE64CF81E4B62DE00CD0271 /* Info.plist */,
 				5BE64D1B1E4B651600CD0271 /* authImageAssets.xcassets */,
@@ -205,6 +277,7 @@
 					};
 					5BE64D021E4B631300CD0271 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = V7Y9TF9C7U;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
@@ -318,7 +391,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BE64D191E4B644900CD0271 /* AuthenticationView.swift in Sources */,
+				5B861F5722180AD800DBDF4B /* AuthStateMachine.swift in Sources */,
+				5B861F652218228F00DBDF4B /* PasswordCollectionView.swift in Sources */,
+				5B861F5B2218139A00DBDF4B /* StyledAuthenticationViewConfiguration.swift in Sources */,
 				5BE64D171E4B644900CD0271 /* ShakeableFlexCollectionView.swift in Sources */,
+				5B861F6F2218307100DBDF4B /* CGRectHelper.swift in Sources */,
+				5B861F6B221824A400DBDF4B /* PINCollectionView.swift in Sources */,
+				5B861F682218244C00DBDF4B /* MicroPINCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,10 +406,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BE64D081E4B631300CD0271 /* ViewController.swift in Sources */,
+				5B861F6C221824A400DBDF4B /* PINCollectionView.swift in Sources */,
+				5B861F5922180C9600DBDF4B /* AuthStateMachine.swift in Sources */,
 				5BE64D211E4C5A1900CD0271 /* AppDelegate+RootView.swift in Sources */,
+				5B861F692218244C00DBDF4B /* MicroPINCollectionView.swift in Sources */,
 				5BE64D181E4B644900CD0271 /* ShakeableFlexCollectionView.swift in Sources */,
+				5B861F662218228F00DBDF4B /* PasswordCollectionView.swift in Sources */,
 				5BE64D1A1E4B644900CD0271 /* AuthenticationView.swift in Sources */,
 				5BE64D1F1E4C586800CD0271 /* AuthenticationDemoService.swift in Sources */,
+				5B861F702218307100DBDF4B /* CGRectHelper.swift in Sources */,
+				5B861F5C2218139A00DBDF4B /* StyledAuthenticationViewConfiguration.swift in Sources */,
 				5BE64D061E4B631300CD0271 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,10 +605,10 @@
 			baseConfigurationReference = 632B0F9947E690317C089AD1 /* Pods-AuthenticationDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V7Y9TF9C7U;
 				INFOPLIST_FILE = AuthenticationDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.AuthenticationDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.AuthenticationDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -534,10 +619,10 @@
 			baseConfigurationReference = 362444765C9A9ED7B28215B4 /* Pods-AuthenticationDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V7Y9TF9C7U;
 				INFOPLIST_FILE = AuthenticationDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.AuthenticationDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.AuthenticationDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};

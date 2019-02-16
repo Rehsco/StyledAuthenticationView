@@ -9,6 +9,8 @@ StyledAuthenticationView is a UIView with styling options to authenticate with T
 
 Please look at the AuthenticationDemo project for a complete use case.
 
+Note that from version 3.0 the library is using the StyledAuthenticationViewConfiguration class for styling and configuration and no longer parameters on the StyledAuthenticationView.
+
 # Installation
 
 ## CocoaPods

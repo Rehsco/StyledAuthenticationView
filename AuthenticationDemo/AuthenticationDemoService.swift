@@ -12,6 +12,11 @@ import MJRFlexStyleComponents
 class AuthenticationDemoService {
     private var authView: AuthenticationView?
     
+    func updateAuthenticationViewLayout(newSize size: CGSize) {
+        authView?.frame = CGRect(origin: .zero, size: size)
+        authView?.setNeedsLayout()
+    }
+    
     // MARK: Authentication handling
     
     static let pinCodeEvaluator: ((String) -> Bool) = {
@@ -32,18 +37,20 @@ class AuthenticationDemoService {
     
     // Demo colors, fonts and layout styling
     private func applyAuthViewStyle() {
-        self.authView?.pinStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10))
-        self.authView?.pinBorderColor = .gray
-        self.authView?.pinSelectionColor = .lightGray
-        self.authView?.pinFont = UIFont.systemFont(ofSize: 18)
-        self.authView?.pinTextColor = .gray
-        self.authView?.cancelDeleteButtonTextColor = .gray
-        self.authView?.cancelDeleteButtonFont = UIFont.systemFont(ofSize: 18)
-        self.authView?.headerTextColor = .gray
-        self.authView?.headerTextFont = UIFont.systemFont(ofSize: 18)
-        self.authView?.backgroundColor = .white
-        self.authView?.passwordStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
-        self.authView?.passwordBorderColor = .gray
+        let config = StyledAuthenticationViewConfiguration()
+        config.pinStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10))
+        config.pinBorderColor = .gray
+        config.pinSelectionColor = .lightGray
+        config.pinFont = UIFont.systemFont(ofSize: 18)
+        config.pinTextColor = .gray
+        config.cancelDeleteButtonTextColor = .gray
+        config.cancelDeleteButtonFont = UIFont.systemFont(ofSize: 18)
+        config.headerTextColor = .gray
+        config.headerTextFont = UIFont.systemFont(ofSize: 18)
+        config.passwordStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
+        config.passwordBorderColor = .gray
+        authView?.backgroundColor = .white
+        authView?.configuration = config
     }
     
     func authenticate(useTouchID: Bool, usePin: Bool, usePassword: Bool, authSuccess: @escaping ((Bool) -> Void)) {
