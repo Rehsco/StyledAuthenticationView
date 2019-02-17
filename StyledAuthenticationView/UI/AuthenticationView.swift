@@ -256,7 +256,7 @@ open class AuthenticationView: UIView, UITextFieldDelegate {
         let minRect = CGRect(origin: .zero, size: CGSize(width: min(bounds.width, configuration.securityViewPreferredSize.width), height: min(bounds.height, configuration.securityViewPreferredSize.height)))
         let secViewRect = CGRect(origin: .zero, size: configuration.securityViewPreferredSize)
         let fitRect = CGRectHelper.AspectFitRectInRect(secViewRect, rtarget: minRect)
-        return CGRect(origin: CGPoint(x: bounds.midX - fitRect.midX, y: bounds.midY - fitRect.midY), size: fitRect.size)
+        return CGRect(origin: CGPoint(x: (bounds.size.width - fitRect.size.width) * 0.5, y: (bounds.size.height - fitRect.size.height) * 0.5), size: fitRect.size)
     }
 
     private func calculatePasswordViewFrame() -> CGRect {
