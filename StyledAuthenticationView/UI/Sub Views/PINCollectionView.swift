@@ -28,7 +28,9 @@
  */
 
 import UIKit
-import MJRFlexStyleComponents
+import FlexCollections
+import FlexMenu
+import FlexControls
 
 class PINCollectionView: ShakeableFlexCollectionView {
     var viewMenuItems: [FlexMenuItem] = []

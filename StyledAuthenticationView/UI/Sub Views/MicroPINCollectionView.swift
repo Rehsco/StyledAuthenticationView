@@ -28,7 +28,8 @@
  */
 
 import UIKit
-import MJRFlexStyleComponents
+import FlexCollections
+import FlexControls
 
 class MicroPINCollectionView: ShakeableFlexCollectionView {
     var pinStyle = FlexShapeStyle(style: .thumb)

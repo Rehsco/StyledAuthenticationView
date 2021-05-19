@@ -28,7 +28,8 @@
  */
 
 import UIKit
-import MJRFlexStyleComponents
+import FlexCollections
+import FlexControls
 
 class PasswordCollectionView: ShakeableFlexCollectionView {
     var pwStyle = FlexShapeStyle(style: .thumb)

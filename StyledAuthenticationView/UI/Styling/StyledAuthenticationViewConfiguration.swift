@@ -28,7 +28,8 @@
  */
 
 import UIKit
-import MJRFlexStyleComponents
+import FlexCollections
+import FlexControls
 
 public class StyledAuthenticationViewConfiguration {
 

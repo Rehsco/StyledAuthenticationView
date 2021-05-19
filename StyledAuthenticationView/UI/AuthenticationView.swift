@@ -29,7 +29,9 @@
 
 import UIKit
 import LocalAuthentication
-import MJRFlexStyleComponents
+import FlexCollections
+import FlexViews
+import FlexMenu
 
 public enum AuthErrorType {
     case success

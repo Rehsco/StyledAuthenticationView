@@ -28,7 +28,7 @@
  */
 
 import UIKit
-import MJRFlexStyleComponents
+import FlexCollections
 import AVFoundation
 
 open class ShakeableFlexCollectionView: FlexCollectionView {
