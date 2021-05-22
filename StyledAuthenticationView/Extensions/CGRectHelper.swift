@@ -1,6 +1,6 @@
 //
 //  CGRectHelper.swift
-//  MJRFlexStyleComponents
+//  StyledAuhtenticationView
 //
 //  Created by Martin Rehder on 09.08.16.
 /*
